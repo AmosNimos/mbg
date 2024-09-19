@@ -43,7 +43,7 @@ while [[ "$#" -gt 0 ]]; do
         -h) HUE_MAX="$2"; shift ;;
         -c) CHROM_SHIFT_MAX="$2"; shift ;;
         --help) print_help ;;
-        *) echo "Unknown option: $1" >&2; exit 1 ;;
+        *) echo c"Unknown option: $1" >&2; exit 1 ;;
     esac
     shift
 done
@@ -58,7 +58,7 @@ fi
 mkdir -p "$FRAME_DIR"
 
 # Clean up any previously generated frames
-rm -f ${FRAME_DIR}*
+#rm -f ${FRAME_DIR}*
 
 # Function to create frames with random offset and chromatic aberration
 generate_frames() {
@@ -82,8 +82,10 @@ generate_frames() {
     done
 }
 
-# Generate the frames
-generate_frames
+# Generate the frames if frame directory is empty
+if -z "$( ls -A $FRAME_DIR)" ]]; then
+    generate_frames
+fi
 
 # Loop through the frames for the specified duration
 END_TIME=$((SECONDS + DURATION))
@@ -98,4 +100,4 @@ done
 feh --bg-fill "$SOURCE_IMG"
 
 # Clean up generated frames after the script ends
-rm -f ${FRAME_DIR}*
+#rm -f ${FRAME_DIR}*
