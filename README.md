@@ -1,7 +1,7 @@
 # MBG
 > Motion Background Glitch 
 
-![/var/tmp/wallpaper.jpg](wallpaper.jpg)
+![/var/tmp/wallpaper.jpg](cool_v11.jpg)
 
 Procedurally animate your wallpaper with a hacker/glitch effect, featuring random hue shifts and chromatic aberration for a striking boot-up display.
 
