@@ -28,9 +28,10 @@ print_help() {
     echo "  -s <source>   Path to the source wallpaper image (default: /var/tmp/wallpaper.jpg)"
     echo "  -d <duration> Duration of the animation in seconds (default: 60)"
     echo "  -f <fps>      Frames per second (default: 24)"
-    echo "  -h <hue>      Maximum hue shift range in degrees (default: 10)"
-    echo "  -c <shift>    Maximum chromatic aberration shift (default: 10)"
-    echo "  --help        Display this help message"
+    echo "  -u <hue>      Maximum hue shift range in degrees (default: 10)"
+    echo "  -a <shift>    Maximum chromatic aberration shift (default: 10)"
+    echo "  -c            Clear frames directory ($FRAME_DIR)"
+    echo "  -h, --help    Display this help message"
     exit 0
 }
 
@@ -40,9 +41,13 @@ while [[ "$#" -gt 0 ]]; do
         -s) SOURCE_IMG="$2"; shift ;;
         -d) DURATION="$2"; shift ;;
         -f) FPS="$2"; shift ;;
-        -h) HUE_MAX="$2"; shift ;;
-        -c) CHROM_SHIFT_MAX="$2"; shift ;;
-        --help) print_help ;;
+        -u) HUE_MAX="$2"; shift ;;
+        -a) CHROM_SHIFT_MAX="$2"; shift ;;
+        -c)
+        rm -rf "${FRAME_DIR}" && echo "${FRAME_DIR} and it's content was deleted succesfully."
+        exit 0
+        ;;
+        -h | --help) print_help ;;
         *) echo c"Unknown option: $1" >&2; exit 1 ;;
     esac
     shift
@@ -58,7 +63,6 @@ fi
 mkdir -p "$FRAME_DIR"
 
 # Clean up any previously generated frames
-#rm -f ${FRAME_DIR}*
 
 # Function to create frames with random offset and chromatic aberration
 generate_frames() {
@@ -80,10 +84,11 @@ generate_frames() {
             -roll ${x_offset}x${y_offset} \
             "$FRAME_DIR/frame_$i.jpg"
     done
+    echo "Frames Generated in ${FRAME_DIR}"
 }
 
 # Generate the frames if frame directory is empty
-if -z "$( ls -A $FRAME_DIR)" ]]; then
+if [[ -z "$( ls -A $FRAME_DIR)" ]]; then
     generate_frames
 fi
 
