@@ -2,9 +2,25 @@
 > Motion Background Glitch 
 
 Animation example:
-~~~ bash
-./mbg.sh -s Skull.jpg -u 6 -o 0 -a 60
+~~~ Bash
+./mbg.sh -c -s Skull.jpg -u 6 -o 0 -a 60
 ~~~
+Explenation:
+"-c" to clear the previous frames, "-s" to specify Skull.jpg as the source, "-u" to set the hue shift, "-o" to set the offset, "-a" to set the Chromatic Aberation.
+
+~~~ Bash
+Usage: /home/amos/bin/mbg.sh [options]
+Options:
+  -s <source>   Path to the source wallpaper image (default: /var/tmp/wallpaper.jpg)
+  -d <duration> Duration of the animation in seconds (default: 60) use 0 for infinite
+  -f <fps>      Frames per second (default: 24)
+  -u <hue>      Maximum hue shift range in degrees (default: 10)
+  -a <shift>    Maximum chromatic aberration shift (default: 10)
+  -o <offset>   Image position shift (default: 10)
+  -c            Clear frames directory (/var/tmp/mbg/)
+  -h, --help    Display this help message
+~~~
+
 Skull.jpg
 ![Skull.jpg](Skull.jpg)
 Procedurally animate your wallpaper with a hacker/glitch effect, featuring random hue shifts and chromatic aberration for a striking boot-up display.
