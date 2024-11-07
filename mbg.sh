@@ -49,7 +49,6 @@ while [[ "$#" -gt 0 ]]; do
         -o) MAX_OFFSET="$2"; shift ;;
         -c)
         rm -rf "${FRAME_DIR}" && echo "${FRAME_DIR} and it's content was deleted succesfully."
-        exit 0
         ;;
         -h | --help) print_help ;;
         *) echo c"Unknown option: $1" >&2; exit 1 ;;
@@ -71,11 +70,11 @@ mkdir -p "$FRAME_DIR"
 # Function to create frames with random offset and chromatic aberration
 generate_frames() {
     # Get the extension of $SOURCE_IMG
+    echo "Generating new frames..."
     EXT="${SOURCE_IMG##*.}"
-
     # If the extension is .jpg, copy $SOURCE_IMG to $DEFAULT_SOURCE_IMG
     if [[ "$EXT" == "jpg" ]]; then
-      cp "$SOURCE_IMG" "$DEFAULT_SOURCE_IMG"
+      cp "$SOURCE_IMG" "$DEFAULT_SOURCE_IMG" && echo "$DEFAULT_SOURCE_IMG was updated."
     fi
 
     for i in $(seq 0 $((FRAME_COUNT - 1))); do
