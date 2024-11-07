@@ -1,7 +1,13 @@
 # MBG
 > Motion Background Glitch 
 
-Animation example:
+### Animation example:
+
+
+![Preview](Skull_animation.gif)
+
+> Notice how only the blue pixel are displaced. You can use that to make custom background animation.
+
 ~~~ Bash
 ./mbg.sh -c -s Skull.jpg -u 6 -o 0 -a 60
 ~~~
