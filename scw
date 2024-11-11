@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Single color wallpaper seter
+
+# Check if a hex color was passed as argument
+if [[ -z "$1" ]]; then
+  echo "Usage: $0 <hex-color>"
+  exit 1
+fi
+
+# Validate hex color format (e.g., #RRGGBB)
+if [[ ! "$1" =~ ^#[0-9A-Fa-f]{6}$ ]]; then
+  echo "Invalid hex color format. Please use #RRGGBB format."
+  exit 2
+fi
+
+# Define temporary image path
+TEMP_IMAGE="/tmp/solid_color.png"
+
+# Create a solid color image using ImageMagick's convert command
+convert -size 1920x1080 xc:"$1" "$TEMP_IMAGE"
+
+# Apply the color image as wallpaper using feh
+feh --bg-fill "$TEMP_IMAGE"
+
+# Optionally, remove the temporary image after setting it
+# rm "$TEMP_IMAGE"
+
+echo "Wallpaper set to color $1"
