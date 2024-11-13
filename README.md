@@ -3,8 +3,7 @@
 
 ### Animation example:
 
-
-![Preview](Skull_animation.gif)
+![Preview](Skull_animation.gif) 
 
 > Notice how only the blue pixel are displaced. You can use that to make custom background animation.
 
@@ -26,8 +25,8 @@ Options:
   -c            Clear frames directory (/var/tmp/mbg/)
   -h, --help    Display this help message
 ~~~
-
-Skull.jpg
+        
+Skull.jpg (Wallpaper by amosnimos)
 ![Skull.jpg](Skull.jpg)
 Procedurally animate your wallpaper with a hacker/glitch effect, featuring random hue shifts and chromatic aberration for a striking boot-up display.
 
