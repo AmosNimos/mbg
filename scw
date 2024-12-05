@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Single-color wallpaper setter
+
+# Check if a hex color was passed as an argument
+if [[ -z "$1" ]]; then
+  echo "Usage: $0 <hex-color>"
+  exit 1
+fi
+
+# Remove leading '#' if present
+color="${1#\#}"
+
+# Validate the color is exactly 6 hexadecimal characters (0-9, A-F, a-f)
+if [[ ! "$color" =~ ^[0-9A-Fa-f]{6}$ ]]; then
+    echo "Invalid color format. Please use a 6-character hexadecimal code (e.g., #RRGGBB)."
+    exit 1
+fi
+
+# Define temporary image path
+TEMP_IMAGE="/tmp/solid_color.png"
+
+# Get screen resolution (filter for only the first occurrence)
+resolution=$(xrandr | grep -oP '\d+x\d+' | head -n 1)
+
+# Use default resolution if detection fails
+if [[ -z "$resolution" ]]; then
+    resolution="1920x1080"
+    echo "Resolution not detected, using default: $resolution"
+else
+    echo "Detected screen resolution: $resolution"
+fi
+
+# Create a solid color image using ImageMagick's convert command
+convert -size "$resolution" xc:"#${color}" "$TEMP_IMAGE"
+
+# Apply the color image as wallpaper using feh
+feh --bg-fill "$TEMP_IMAGE"
+
+echo "Wallpaper set to color #$color"
